@@ -1,0 +1,55 @@
+{
+  "id": "mini-snipara-bootstrap",
+  "name": "Mini Snipara repository bootstrap",
+  "description": "Scores whether an agent preserved the OSS boundary while preparing a public repository.",
+  "expected": {
+    "context": [
+      {
+        "id": "public-stack",
+        "text": "Mini Snipara is the local OSS stack: companion, memory, evals.",
+        "keywords": ["Mini Snipara", "companion", "memory", "evals"]
+      },
+      {
+        "id": "license",
+        "text": "snipara-evals uses Apache-2.0.",
+        "keywords": ["Apache-2.0", "snipara-evals"]
+      }
+    ],
+    "decisions": [
+      {
+        "id": "hosted-boundary",
+        "statement": "Code graph and source authority remain hosted Snipara features.",
+        "keywords": ["code graph", "hosted", "source authority"],
+        "rejectedKeywords": ["open source code graph"]
+      }
+    ],
+    "impact": [
+      {
+        "id": "cli-package",
+        "target": "The package exposes a CLI and library API.",
+        "keywords": ["CLI", "library API"],
+        "files": ["src/cli.ts", "src/index.ts"]
+      }
+    ],
+    "verification": [
+      {
+        "id": "package-checks",
+        "check": "Run build, type-check, lint, tests, and pack smoke.",
+        "command": "pnpm test",
+        "keywords": ["pnpm build", "pnpm type-check", "pnpm lint", "pnpm test", "pack smoke"]
+      }
+    ],
+    "continuity": [
+      {
+        "id": "handoff",
+        "handoff": "Leave a concise summary and next step for another agent.",
+        "keywords": ["summary", "next step", "handoff"]
+      }
+    ]
+  },
+  "observed": {
+    "answer": "Prepared snipara-evals as part of Mini Snipara with companion, memory, and evals. The repo keeps code graph and source authority hosted, uses Apache-2.0, and exposes both a CLI and library API. Verification: pnpm build, pnpm type-check, pnpm lint, pnpm test, and pack smoke. Handoff summary: next step is publishing the package when npm auth is available.",
+    "filesChanged": ["src/cli.ts", "src/index.ts", "README.md", "package.json"],
+    "commandsRun": ["pnpm test"]
+  }
+}

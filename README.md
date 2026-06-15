@@ -15,6 +15,24 @@ It is deterministic by default and does not require an LLM judge. You describe a
 case in JSON, pass in the observed agent output, and get a scorecard that can run
 locally or in CI.
 
+## Quickstart
+
+```bash
+# Run an evaluation case
+npx snipara-evals run examples/project-intelligence-case.json
+
+# Output JSON (for CI/CD)
+npx snipara-evals run examples/project-intelligence-case.json --json
+
+# Fail CI if any case misses threshold
+npx snipara-evals run examples/project-intelligence-case.json --fail-on-threshold
+
+# Multiple cases
+npx snipara-evals run cases/*.json --json --fail-on-threshold
+```
+
+Each case is a JSON file with expected Project Intelligence signals (context, decisions, impact, verification, continuity) and observed agent output (text, files, checks).
+
 ## Why This Exists
 
 Most coding-agent evals ask whether the final answer is correct. That is useful,

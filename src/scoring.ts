@@ -1,3 +1,12 @@
+/**
+ * Deterministic evaluation engine — score Project Intelligence across 5 metrics.
+ *
+ * Implements the core evals logic: given expected signals (context, decisions,
+ * impact, verification, continuity) and observed agent output (text + files),
+ * compute keyword/file matches for each metric and aggregate per case and suite.
+ * Thresholds and weights are configurable but default to balanced (75% overall
+ * pass threshold). Scoring is deterministic and requires no LLM judge.
+ */
 import {
   type EvalCase,
   type EvalResult,
@@ -52,6 +61,12 @@ type Corpus = {
   checks: string[];
 };
 
+/**
+ * Evaluate a suite of cases and aggregate the results.
+ *
+ * @param cases Array of evaluation cases
+ * @returns Aggregated suite result with per-case scores and overall pass/fail
+ */
 export function evaluateSuite(cases: EvalCase[]): EvalSuiteResult {
   const results = cases.map((item) => evaluateCase(item));
   const score = round(
@@ -71,6 +86,17 @@ export function evaluateSuite(cases: EvalCase[]): EvalSuiteResult {
   };
 }
 
+/**
+ * Evaluate a single case against expected Project Intelligence signals.
+ *
+ * Scores the agent's observed output (text, files, checks, commands) against
+ * five metrics (context preservation, decision consistency, impact awareness,
+ * verification coverage, continuity). Each metric is scored independently, then
+ * weighted and aggregated to an overall score against the case threshold.
+ *
+ * @param input The evaluation case with expected signals and observed output
+ * @returns Per-metric scores, overall score, and pass/fail verdict
+ */
 export function evaluateCase(input: EvalCase): EvalResult {
   assertCase(input);
 

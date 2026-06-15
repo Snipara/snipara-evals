@@ -1,4 +1,13 @@
 #!/usr/bin/env node
+/**
+ * CLI entry point for snipara-evals.
+ *
+ * Loads evaluation cases from JSON files, runs the scoring engine, and outputs
+ * results in human-readable format or JSON. Supports fail-on-threshold mode
+ * for CI/CD integration.
+ *
+ * Usage: snipara-evals run <casefile> [--json] [--fail-on-threshold]
+ */
 import { loadCases } from "./io.js";
 import { formatSuite } from "./report.js";
 import { evaluateSuite } from "./scoring.js";

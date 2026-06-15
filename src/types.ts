@@ -1,3 +1,12 @@
+/**
+ * Domain types for Project Intelligence evals.
+ *
+ * Defines the case format (expected signals vs observed agent output), metrics
+ * (context preservation, decision consistency, impact awareness, verification
+ * coverage, continuity), and scoring results. Expected signals use keyword and
+ * file matching; agent output is text-based observation of what was preserved.
+ */
+
 export const metricKeys = [
   "contextPreservation",
   "decisionConsistency",

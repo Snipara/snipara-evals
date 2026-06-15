@@ -1,5 +1,15 @@
+/**
+ * Reporting and formatting for snipara-evals results.
+ *
+ * Converts evaluation results (per-case scores, metrics, overall verdicts)
+ * into human-readable terminal output with color-coded status (pass/warn/fail).
+ * Supports both case-level and suite-level formatting.
+ */
 import { type EvalResult, type EvalSuiteResult, type MetricStatus } from "./types.js";
 
+/**
+ * Format a suite result into human-readable terminal output.
+ */
 export function formatSuite(result: EvalSuiteResult): string {
   const lines = [
     `snipara-evals suite: ${result.score.toFixed(1)} ${statusLabel(result.status)}`,

@@ -1,6 +1,18 @@
+/**
+ * File I/O helpers for snipara-evals.
+ *
+ * Loads JSON case files (single case or array of cases) and normalizes them
+ * into the EvalCase format. Supports both JSON and JSONL line-by-line formats.
+ */
 import { readFile } from "node:fs/promises";
 import { type EvalCase } from "./types.js";
 
+/**
+ * Load evaluation cases from a JSON or JSONL file.
+ *
+ * @param path File path to read
+ * @returns Array of normalized EvalCase objects
+ */
 export async function loadCases(path: string): Promise<EvalCase[]> {
   const raw = await readFile(path, "utf8");
   const parsed: unknown = JSON.parse(raw);

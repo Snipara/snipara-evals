@@ -15,23 +15,28 @@ It is deterministic by default and does not require an LLM judge. You describe a
 case in JSON, pass in the observed agent output, and get a scorecard that can run
 locally or in CI.
 
-## Quickstart
+## Quick start
+
+Requires Node.js 20+. The example path below is relative to this repository;
+`npx` does not copy package examples into your current directory.
 
 ```bash
-# Run an evaluation case
-npx snipara-evals run examples/project-intelligence-case.json
-
-# Output JSON (for CI/CD)
-npx snipara-evals run examples/project-intelligence-case.json --json
-
-# Fail CI if any case misses threshold
-npx snipara-evals run examples/project-intelligence-case.json --fail-on-threshold
-
-# Multiple cases
-npx snipara-evals run cases/*.json --json --fail-on-threshold
+git clone https://github.com/Snipara/snipara-evals.git
+cd snipara-evals
+npx -y snipara-evals@latest run examples/project-intelligence-case.json
+npx -y snipara-evals@latest run examples/project-intelligence-case.json --json
+npx -y snipara-evals@latest run examples/project-intelligence-case.json --fail-on-threshold
 ```
 
-Each case is a JSON file with expected Project Intelligence signals (context, decisions, impact, verification, continuity) and observed agent output (text, files, checks).
+To evaluate the checked-out source instead, follow [development](#development)
+and invoke `node dist/cli.js run examples/project-intelligence-case.json`.
+For your own cases, pass existing JSON paths; multiple paths are supported.
+`--fail-on-threshold` exits with code 1 when the suite misses its thresholds.
+
+Each case supplies expected signals and observed output. The scorer evaluates
+those supplied observations; it does not execute the commands listed in a
+case, independently verify a test result or establish that an agent obeyed a
+policy. Use actual runtime receipts when those facts matter.
 
 ## Why This Exists
 
@@ -49,24 +54,6 @@ This repo is part of the open "Mini Snipara" stack:
 
 Hosted Snipara remains the managed layer for source authority, reviewed memory,
 team sync, code graph impact, dashboards, and operations.
-
-## Quick Start
-
-```bash
-npx snipara-evals run examples/project-intelligence-case.json
-```
-
-JSON output:
-
-```bash
-npx snipara-evals run examples/project-intelligence-case.json --json
-```
-
-Fail CI when thresholds are missed:
-
-```bash
-npx snipara-evals run examples/project-intelligence-case.json --fail-on-threshold
-```
 
 ## Case Format
 
